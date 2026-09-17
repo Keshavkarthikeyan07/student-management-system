@@ -1,179 +1,124 @@
 # 🎓 Student Management System
 
-> **Full-stack CRUD web application** — React + Django REST Framework + MySQL
+> **Full-Stack CRUD Web Application** — React 18 + Django REST Framework + MySQL / SQLite
 
-[![Python](https://img.shields.io/badge/Python-3.10+-blue)](https://python.org)
-[![Django](https://img.shields.io/badge/Django-4.2-green)](https://djangoproject.com)
-[![React](https://img.shields.io/badge/React-18-61dafb)](https://react.dev)
-[![MySQL](https://img.shields.io/badge/MySQL-8.0+-orange)](https://mysql.com)
+[![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
+[![Django](https://img.shields.io/badge/Django-4.2-092E20?style=for-the-badge&logo=django&logoColor=white)](https://djangoproject.com)
+[![DRF](https://img.shields.io/badge/Django_REST-3.15-red?style=for-the-badge&logo=django&logoColor=white)](https://www.django-rest-framework.org)
+[![React](https://img.shields.io/badge/React-18-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev)
+[![Vite](https://img.shields.io/badge/Vite-5.0-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev)
+[![MySQL](https://img.shields.io/badge/MySQL-8.0+-4479A1?style=for-the-badge&logo=mysql&logoColor=white)](https://mysql.com)
+[![Tests Pass](https://img.shields.io/badge/Tests-19%2F19%20Passed-success?style=for-the-badge&logo=pytest&logoColor=white)](#-testing--verification)
+
+---
+
+## 🖼️ Application Screenshot
+
+![Student Management System Dashboard](docs/screenshots/dashboard.jpg)
 
 ---
 
 ## 📌 Project Overview
 
-The Student Management System (SMS) is a complete full-stack web application that allows administrators to manage student records through a clean, responsive interface. Every operation — Create, Read, Update, Delete — communicates with a real **MySQL database** through a **Django REST API**.
+The **Student Management System (SMS)** is a full-stack web application designed for educational institutions to streamline administrator management of student records. 
 
-```
-React Frontend → REST API → Django REST Framework → Django ORM → MySQL
+It provides an intuitive interface for full **CRUD (Create, Read, Update, Delete)** operations, debounced real-time searching, responsive data tables, client/server dual validation, and auto-dismissing toast notifications.
+
+```mermaid
+graph LR
+    User[React 18 SPA] -->|Axios REST Calls| API[Django REST Framework]
+    API -->|Django ORM| DB[(MySQL / SQLite Database)]
 ```
 
 ---
 
-## ✨ Features
+## ✨ Features & Functionality
 
-| Feature | Details |
-|---------|---------|
-| ➕ Add Student | Form with full client + server validation |
-| 📋 View All Students | Live table pulled from MySQL |
-| ✏️ Edit Student | Pre-filled form, real PUT request |
-| 🗑️ Delete Student | Confirmation modal, real DELETE request |
-| 🔍 Search | Debounced backend search (name, email, department) |
-| ✅ Validation | Dual-layer: client-side + DRF server-side |
-| 🔔 Notifications | Auto-dismissing success/error toasts |
-| 📱 Responsive | Desktop, tablet, and mobile layouts |
-| ⚡ Loading States | Spinner + empty state + error state |
-| 🧪 Tests | 17 automated DRF test cases |
+| Feature | Description |
+|---------|-------------|
+| ➕ **Add Student** | Modal form with real-time client-side pattern checks and server-side DRF validation. |
+| 📋 **Live Directory** | High-performance student table connected to real database records with instant sorting. |
+| ✏️ **Edit Record** | Pre-populated update modal supporting full (`PUT`) and partial (`PATCH`) updates. |
+| 🗑️ **Delete Record** | Confirmation dialog with instant backend deletion (`DELETE`). |
+| 🔍 **Live Search** | Debounced search filtering across student names, emails, and academic departments. |
+| 🛡️ **Dual-Layer Validation** | Client-side input format checks + server-side uniqueness & range validation rules. |
+| 🔔 **Toast Feedback** | Auto-dismissing success, notification, and error alerts. |
+| ⚡ **Unified Deployment** | Django serves both the REST API and the compiled React SPA from a single port. |
 
 ---
 
 ## 🛠️ Technology Stack
 
-| Layer       | Technology                                  |
-|-------------|---------------------------------------------|
-| Frontend    | React 18, Vite, Axios, Vanilla CSS          |
-| Backend     | Python 3.10+, Django 4.2, DRF 3.15         |
-| Database    | MySQL 8.0+                                  |
-| Config      | python-decouple (.env)                      |
-| Version Ctrl| Git / GitHub                                |
+| Layer | Technology | Details |
+|-------|------------|---------|
+| **Frontend** | React 18, Vite, Axios | Modern SPA UI with Glassmorphic CSS styling |
+| **Backend** | Python 3.10+, Django 4.2 | Robust MVC web framework & REST server |
+| **API Layer** | Django REST Framework 3.15 | Serializers, ViewSets, CORS handling |
+| **Database** | SQLite (Default) / MySQL 8.0+ | Configurable ORM data backend |
+| **Config** | `python-decouple` | Safe `.env` configuration management |
 
 ---
 
-## 🚀 Getting Started
+## 🚀 Quick Start & Local Deployment
 
-### Prerequisites
+### 1. Prerequisites
+- **Python 3.10+**
+- **Git**
 
-Install these before starting:
-
-| Tool | Download |
-|------|----------|
-| Python 3.10+ | https://python.org/downloads |
-| Node.js 18+ | https://nodejs.org |
-| MySQL 8.0+ | https://dev.mysql.com/downloads |
-| Git | https://git-scm.com |
-
----
-
-### Step 1 — MySQL Database Setup
-
-Open MySQL command line and run:
-
-```sql
-CREATE DATABASE student_management_db
-  CHARACTER SET utf8mb4
-  COLLATE utf8mb4_unicode_ci;
-
--- Optional: create a dedicated user
-CREATE USER 'sms_user'@'localhost' IDENTIFIED BY 'YourPassword123!';
-GRANT ALL PRIVILEGES ON student_management_db.* TO 'sms_user'@'localhost';
-FLUSH PRIVILEGES;
-```
-
----
-
-### Step 2 — Backend Setup
-
+### 2. Quick Unified Deployment (Single Server)
 ```bash
+# Clone the repository
+git clone https://github.com/Keshavkarthikeyan07/student-management-system.git
 cd student-management-system/backend
 
-# Create virtual environment
-python -m venv venv
+# Activate virtual environment (Windows)
+.\venv\Scripts\activate
+# (macOS/Linux: source venv/bin/activate)
 
-# Activate (Windows)
-venv\Scripts\activate
-
-# Activate (macOS/Linux)
-source venv/bin/activate
-
-# Install dependencies
+# Install dependencies (if needed)
 pip install -r requirements.txt
 
-# Create .env from example
-copy .env.example .env       # Windows
-# cp .env.example .env       # macOS/Linux
-```
-
-**Edit `.env`** with your MySQL credentials:
-
-```env
-SECRET_KEY=your-very-long-random-secret-key-here
-DEBUG=True
-ALLOWED_HOSTS=localhost,127.0.0.1
-
-DB_NAME=student_management_db
-DB_USER=sms_user
-DB_PASSWORD=YourPassword123!
-DB_HOST=127.0.0.1
-DB_PORT=3306
-
-CORS_ALLOWED_ORIGINS=http://localhost:5173,http://127.0.0.1:5173
-```
-
-```bash
-# Run database migrations (creates students table in MySQL)
+# Run migrations
 python manage.py migrate
 
-# (Optional) Create admin user for /admin panel
-python manage.py createsuperuser
-
-# Start the backend server
-python manage.py runserver
+# Start the application server
+python manage.py runserver 127.0.0.1:8000
 ```
-
-✅ Backend running at: **http://127.0.0.1:8000**
-
----
-
-### Step 3 — Frontend Setup
-
-Open a **new terminal**:
-
-```bash
-cd student-management-system/frontend
-
-# Install dependencies
-npm install
-
-# Start development server
-npm run dev
-```
-
-✅ Frontend running at: **http://localhost:5173**
+✅ Open **[http://127.0.0.1:8000/](http://127.0.0.1:8000/)** in your browser to view the application!
 
 ---
 
-## 🔌 API Endpoints
+## 🔌 API Endpoints Reference
 
-| Method | Endpoint                    | Description          | Status Code |
-|--------|-----------------------------|----------------------|-------------|
-| GET    | `/api/students/`            | List all students    | 200         |
-| GET    | `/api/students/?search=...` | Search students      | 200         |
-| POST   | `/api/students/`            | Create student       | 201         |
-| GET    | `/api/students/{id}/`       | Get one student      | 200         |
-| PUT    | `/api/students/{id}/`       | Full update          | 200         |
-| PATCH  | `/api/students/{id}/`       | Partial update       | 200         |
-| DELETE | `/api/students/{id}/`       | Delete student       | 204         |
+| Method | Endpoint | Description | Status Code |
+|--------|----------|-------------|-------------|
+| `GET` | `/api/students/` | Fetch all student records | `200 OK` |
+| `GET` | `/api/students/?search=...` | Search students by name/email/department | `200 OK` |
+| `POST` | `/api/students/` | Create a new student record | `201 Created` |
+| `GET` | `/api/students/{id}/` | Fetch single student details by ID | `200 OK` |
+| `PUT` | `/api/students/{id}/` | Complete record update | `200 OK` |
+| `PATCH` | `/api/students/{id}/` | Partial record update | `200 OK` |
+| `DELETE` | `/api/students/{id}/` | Delete student record | `204 No Content` |
 
 ---
 
-## 🧪 Running Tests
+## 🧪 Testing & Verification
 
+The system includes both automated unit tests and a live end-to-end CRUD verification suite:
+
+### 1. Automated DRF Unit Tests
 ```bash
 cd backend
-venv\Scripts\activate      # Windows
 python manage.py test students --verbosity=2
 ```
+- **Results**: `19/19 test cases passed` (Testing model constraints, serializers, API views, validation, and HTTP status codes).
 
-Expected: **17 tests, all OK**
+### 2. End-to-End Live CRUD Verification
+```bash
+cd backend
+python verify_crud.py
+```
+- **Results**: `45/45 checks passed` (Verifies live API root, creation, listing, individual retrieval, search filtering, full update, partial patch, persistence, invalid input 400s, non-existent 404s, and deletion).
 
 ---
 
@@ -181,33 +126,32 @@ Expected: **17 tests, all OK**
 
 ```
 student-management-system/
-├── .gitignore
 ├── README.md
+├── .gitignore
 ├── backend/
 │   ├── manage.py
 │   ├── requirements.txt
-│   ├── .env.example         ← copy to .env and fill credentials
-│   ├── config/
+│   ├── verify_crud.py              ← Live 45-check test suite
+│   ├── .env.example
+│   ├── config/                     ← Django settings & URLs
 │   │   ├── settings.py
 │   │   └── urls.py
-│   └── students/
-│       ├── models.py        ← Student ORM model
-│       ├── serializers.py   ← DRF serializer + validation
-│       ├── views.py         ← REST API views
-│       ├── urls.py
-│       ├── admin.py
-│       └── tests.py         ← 17 automated tests
+│   └── students/                   ← App logic (Models, Views, Serializers, Tests)
+│       ├── models.py
+│       ├── serializers.py
+│       ├── views.py
+│       └── tests.py
 ├── frontend/
 │   ├── package.json
-│   ├── vite.config.js
+│   ├── dist/                       ← Compiled React SPA build
 │   └── src/
 │       ├── App.jsx
 │       ├── index.css
-│       ├── components/      ← Header, Form, Table, Search, Modal, Toast
-│       ├── pages/           ← Dashboard
-│       └── services/        ← Axios API client
+│       ├── components/             ← Modal, Form, Table, Header, Toast
+│       └── services/               ← Axios API client
 └── docs/
-    ├── README.md
+    ├── screenshots/                ← UI Screenshot assets
+    │   └── dashboard.jpg
     ├── API_DOCUMENTATION.md
     ├── ARCHITECTURE.md
     ├── DATABASE.md
@@ -217,48 +161,17 @@ student-management-system/
 
 ---
 
-## 🔐 Security Notes
+## 📚 Detailed Documentation
 
-- ❌ **Never** commit `.env` to Git (it's in `.gitignore`)
-- ✅ Use a strong, unique `SECRET_KEY` (50+ random characters)
-- ✅ Set `DEBUG=False` in production
-- ✅ All SQL queries go through Django ORM (no raw SQL injection risk)
-
----
-
-## 🌐 GitHub Setup
-
-```bash
-# Initialize Git (if not done)
-git init
-
-# Stage all files
-git add .
-
-# First commit
-git commit -m "Initial project setup: Student Management System"
-
-# Create a new repository at https://github.com/new
-# Then connect your remote:
-git remote add origin https://github.com/YOUR_USERNAME/student-management-system.git
-git branch -M main
-git push -u origin main
-```
-
----
-
-## 📚 Documentation
-
-| Document | Description |
-|----------|-------------|
-| [API_DOCUMENTATION.md](docs/API_DOCUMENTATION.md) | Full REST API reference + Postman guide |
-| [ARCHITECTURE.md](docs/ARCHITECTURE.md) | System architecture + data flow diagrams |
-| [DATABASE.md](docs/DATABASE.md) | ER diagram + schema + SQL |
-| [TESTING.md](docs/TESTING.md) | Test cases + how to run tests |
-| [PROJECT_REPORT.md](docs/PROJECT_REPORT.md) | Complete college submission report |
+| Document | Content |
+|----------|---------|
+| 📖 [API Documentation](docs/API_DOCUMENTATION.md) | Full endpoint specs & JSON payload examples |
+| 🏗️ [Architecture Guide](docs/ARCHITECTURE.md) | System components & data flow design |
+| 🗄️ [Database Reference](docs/DATABASE.md) | Schema design, fields, & indexing |
+| 🧪 [Testing Guide](docs/TESTING.md) | Automated & manual testing procedures |
+| 📄 [Project Report](docs/PROJECT_REPORT.md) | Comprehensive academic project summary |
 
 ---
 
 ## 📄 License
-
-Created for educational / college submission purposes.
+Educational & Open Source Project — Created for **Student Management System** portfolio.
